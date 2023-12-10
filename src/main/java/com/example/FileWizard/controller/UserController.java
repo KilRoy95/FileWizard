@@ -1,9 +1,9 @@
 package com.example.FileWizard.controller;
 
-import com.example.FileWizard.jwtConfig.JwtUtil;
 import com.example.FileWizard.dto.AuthenticationRequest;
 import com.example.FileWizard.dto.AuthenticationResponse;
 import com.example.FileWizard.dto.RegistrationUserDto;
+import com.example.FileWizard.jwtConfig.JwtUtil;
 import com.example.FileWizard.model.User;
 import com.example.FileWizard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,11 @@ public class UserController {
         this.jwtTokenService = jwtTokenService;
     }
 
-    @GetMapping("/allusers")
+    @GetMapping("/all-users")
     public ResponseEntity<List<User>> getAll() {
-        var allUsers = userService.getAllUsers();
-        return ResponseEntity.ok(allUsers);
+        return ResponseEntity.ok(userService.getAllUsers());
 
-        //endpoint: http://localhost:8080/api/allusers
+        //endpoint: http://localhost:8080/api/all-users
         //Desc: Returns all users
         //Require: Token
     }
@@ -56,7 +55,6 @@ public class UserController {
         }
     */
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<?> createUserWithRole(@RequestBody RegistrationUserDto userRegistrationDTO) {
@@ -85,6 +83,4 @@ public class UserController {
     */
         //"roles" is either ["ADMIN"] or ["USER"]
     }
-
-
 }

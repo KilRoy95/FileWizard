@@ -1,7 +1,7 @@
 package com.example.FileWizard.config;
 
-import com.example.FileWizard.jwtConfig.JwtAuthenticationFilter;
 import com.example.FileWizard.auth.CustomUserDetailsService;
+import com.example.FileWizard.jwtConfig.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +55,8 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(configure -> configure
                         .requestMatchers(HttpMethod.POST, "/api/register", "/api/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/allusers").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/all-users", "/api/all-folders").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/create-folder").hasAnyAuthority("ADMIN", "USER")
 
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement

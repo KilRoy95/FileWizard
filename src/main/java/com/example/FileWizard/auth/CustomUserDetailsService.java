@@ -1,6 +1,6 @@
 package com.example.FileWizard.auth;
 
-import com.example.FileWizard.repository.UserRepo;
+import com.example.FileWizard.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepo userRepository;
+    private final UserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepo userRepository) {
+    public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
