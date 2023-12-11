@@ -8,6 +8,7 @@ import com.example.FileWizard.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,13 @@ public class FolderController {
         //Require: Token
     }
 
+    @GetMapping("/folders")
+    public ResponseEntity<?> getMyFolders(@AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println("Finding folders for: " + userDetails.getUsername());
+        return ResponseEntity.ok(folderService.getMyFolders(userDetails.getUsername()));
+    }
+
     @PostMapping("/create-folder")
     public ResponseEntity<?> createFolder(@RequestBody FolderDto folderDto) {
         try {
@@ -58,18 +66,4 @@ public class FolderController {
             throw new IllegalStateException("Unexpected principal type: " + principal.getClass());
         }
     }
-
-    /*private String getPrincipalUsername() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            username = userDetails.getUsername();
-        } else if (principal instanceof String) {
-            username = (String) principal;
-        } else {
-            throw new IllegalStateException("Unexpected principal type: " + principal.getClass());
-        }
-        return username;
-    }*/
 }

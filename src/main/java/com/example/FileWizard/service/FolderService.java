@@ -31,6 +31,10 @@ public class FolderService {
         return folderRepo.findAll();
     }
 
+    public List<Folder> getMyFolders(String username) {
+        return folderRepo.findFoldersByUsername(username);
+    }
+
     public String addFolder(FolderDto folderDto, User currentUser) {
 
         // Create a Path object
@@ -42,7 +46,7 @@ public class FolderService {
         try {
 
             if (!currentUser.getFolders().isEmpty()) {
-                // Check if folders are same in both db and local UserDate folder
+                // Check if folders are same in both db and local UserData folder
                 boolean foldersAreEqual = areFoldersEqual(userFolders, localFolderPath + currentUser.getUsername());
                 if (foldersAreEqual) {
                     System.out.println("Folders synced.");
