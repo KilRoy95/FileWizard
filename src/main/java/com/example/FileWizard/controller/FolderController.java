@@ -33,14 +33,17 @@ public class FolderController {
 
         //endpoint: http://localhost:8080/api/all-folders
         //Desc: Returns all folders
-        //Require: Token
     }
 
-    @GetMapping("/folders")
+    @GetMapping("/my-folders")
     public ResponseEntity<?> getMyFolders(@AuthenticationPrincipal UserDetails userDetails) {
 
         System.out.println("Finding folders for: " + userDetails.getUsername());
         return ResponseEntity.ok(folderService.getMyFolders(userDetails.getUsername()));
+
+        //endpoint: http://localhost:8080/api/all-folders
+        //Desc: Returns all (authenticated users) folders
+        //Require: Token
     }
 
     @PostMapping("/create-folder")

@@ -1,5 +1,7 @@
 package com.example.FileWizard.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +29,12 @@ public class User implements UserDetails {
     private Collection<String> roles;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Folder> folders;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<UserFile> files;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

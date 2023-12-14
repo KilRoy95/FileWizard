@@ -1,6 +1,7 @@
 package com.example.FileWizard.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,10 +19,11 @@ public class Folder {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonBackReference
     private User user;
 
     @OneToMany(mappedBy = "folder", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<UserFile> userFiles;
 
     public Folder() {

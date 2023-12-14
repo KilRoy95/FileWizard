@@ -55,8 +55,9 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(configure -> configure
                         .requestMatchers(HttpMethod.POST, "/api/register", "/api/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/all-users", "/api/all-folders").permitAll() // ONLY FOR DEBUGGING
-                        .requestMatchers(HttpMethod.POST, "/api/create-folder", "/api/my-folders").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/all-users", "/api/all-folders", "/api/all-files").permitAll() // ONLY FOR DEBUGGING
+                        .requestMatchers(HttpMethod.POST, "/api/create-folder", "/api/my-folders", "/api/my-files",
+                                "/api/upload", "/api/download", "/api/delete").hasAnyAuthority("ADMIN", "USER")
 
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement
